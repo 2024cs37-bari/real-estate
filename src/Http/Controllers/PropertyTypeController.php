@@ -39,7 +39,7 @@ class PropertyTypeController extends Controller
 
     public function update(Request $request, PropertyType $propertyType)
     {
-        if (!Auth::user()->can('edit-property-types')) {
+        if (!Auth::user()->can('edit-property-types') || $propertyType->created_by != creatorId()) {
             return back()->with('error', __('Permission denied'));
         }
 
@@ -55,7 +55,7 @@ class PropertyTypeController extends Controller
 
     public function destroy(PropertyType $propertyType)
     {
-        if (!Auth::user()->can('delete-property-types')) {
+        if (!Auth::user()->can('delete-property-types') || $propertyType->created_by != creatorId()) {
             return back()->with('error', __('Permission denied'));
         }
 

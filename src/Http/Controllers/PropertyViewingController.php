@@ -49,6 +49,12 @@ class PropertyViewingController extends Controller
             return back()->with('error', __('Permission denied'));
         }
 
+        // Ensure the target property belongs to this company (validated exists,
+        // but exists is tenant-blind — guard against cross-tenant scheduling).
+        if (!Property::where('id', $request->input('property_id'))->where('created_by', creatorId())->exists()) {
+            return back()->with('error', __('Permission denied'));
+        }
+
         $viewing = new PropertyViewing();
         $viewing->fill($request->validated());
         $viewing->creator_id = Auth::id();
@@ -60,7 +66,12 @@ class PropertyViewingController extends Controller
 
     public function update(StorePropertyViewingRequest $request, PropertyViewing $viewing)
     {
-        if (!Auth::user()->can('edit-property-viewings')) {
+        if (!Auth::user()->can('edit-property-viewings') || $viewing->created_by != creatorId()) {
+            return back()->with('error', __('Permission denied'));
+        }
+
+        // A reassigned property_id must also belong to this company.
+        if (!Property::where('id', $request->input('property_id'))->where('created_by', creatorId())->exists()) {
             return back()->with('error', __('Permission denied'));
         }
 
@@ -72,7 +83,7 @@ class PropertyViewingController extends Controller
 
     public function destroy(PropertyViewing $viewing)
     {
-        if (!Auth::user()->can('delete-property-viewings')) {
+        if (!Auth::user()->can('delete-property-viewings') || $viewing->created_by != creatorId()) {
             return back()->with('error', __('Permission denied'));
         }
 

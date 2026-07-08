@@ -35,7 +35,7 @@ class AmenityController extends Controller
 
     public function update(Request $request, Amenity $amenity)
     {
-        if (!Auth::user()->can('edit-amenities')) {
+        if (!Auth::user()->can('edit-amenities') || $amenity->created_by != creatorId()) {
             return back()->with('error', __('Permission denied'));
         }
 
@@ -47,7 +47,7 @@ class AmenityController extends Controller
 
     public function destroy(Amenity $amenity)
     {
-        if (!Auth::user()->can('delete-amenities')) {
+        if (!Auth::user()->can('delete-amenities') || $amenity->created_by != creatorId()) {
             return back()->with('error', __('Permission denied'));
         }
 

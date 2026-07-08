@@ -85,7 +85,7 @@ class PropertyController extends Controller
 
     public function show(Property $property)
     {
-        if (!Auth::user()->can('manage-properties')) {
+        if (!Auth::user()->can('manage-properties') || $property->created_by != creatorId()) {
             return back()->with('error', __('Permission denied'));
         }
 
@@ -98,7 +98,7 @@ class PropertyController extends Controller
 
     public function edit(Property $property)
     {
-        if (!Auth::user()->can('edit-properties')) {
+        if (!Auth::user()->can('edit-properties') || $property->created_by != creatorId()) {
             return back()->with('error', __('Permission denied'));
         }
 
@@ -111,7 +111,7 @@ class PropertyController extends Controller
 
     public function update(UpdatePropertyRequest $request, Property $property)
     {
-        if (!Auth::user()->can('edit-properties')) {
+        if (!Auth::user()->can('edit-properties') || $property->created_by != creatorId()) {
             return redirect()->route('real-estate.properties.index')->with('error', __('Permission denied'));
         }
 
@@ -129,7 +129,7 @@ class PropertyController extends Controller
 
     public function destroy(Property $property)
     {
-        if (!Auth::user()->can('delete-properties')) {
+        if (!Auth::user()->can('delete-properties') || $property->created_by != creatorId()) {
             return back()->with('error', __('Permission denied'));
         }
 
