@@ -1,0 +1,10 @@
+{
+    "name": "RealEstate",
+    "alias": "Real Estate",
+    "description": "Property/listing management and viewings for real estate brokerages",
+    "priority": 45,
+    "version": 1.0,
+    "monthly_price": 0,
+    "yearly_price": 0,
+    "package_name": "real-estate"
+}
