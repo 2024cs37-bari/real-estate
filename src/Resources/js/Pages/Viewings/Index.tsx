@@ -126,7 +126,7 @@ export default function Index() {
                             <Select value={data.property_id} onValueChange={(v) => setData('property_id', v)}>
                                 <SelectTrigger><SelectValue placeholder={t('Select property')} /></SelectTrigger>
                                 <SelectContent>
-                                    {properties.map((p) => <SelectItem key={p.id} value={String(p.id)}>{p.reference_no} — {p.title}</SelectItem>)}
+                                    {properties.map((p) => <SelectItem key={p.id} value={String(p.id)}>{p.reference_no} - {p.title}</SelectItem>)}
                                 </SelectContent>
                             </Select>
                             <InputError message={errors.property_id} />

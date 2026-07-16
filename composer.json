@@ -1,6 +1,6 @@
 {
     "name": "zerp/real-estate",
-    "description": "Real Estate Brokerage module for Zerp — property/listing management and viewings",
+    "description": "Real Estate Brokerage module for Zerp - property/listing management and viewings",
     "type": "library",
     "license": "MIT",
     "require": {},

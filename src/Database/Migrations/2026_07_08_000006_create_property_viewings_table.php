@@ -12,7 +12,7 @@ return new class extends Migration
             Schema::create('property_viewings', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('property_id')->index();
-                // Soft link to the CRM lead module — nullable, and the FK is only
+                // Soft link to the CRM lead module - nullable, and the FK is only
                 // added when the leads table exists so viewings work standalone.
                 // ponytail: decoupled from the lead package, no edits to it.
                 $table->foreignId('lead_id')->nullable()->index();
