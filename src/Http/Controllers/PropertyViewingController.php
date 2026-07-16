@@ -50,7 +50,7 @@ class PropertyViewingController extends Controller
         }
 
         // Ensure the target property belongs to this company (validated exists,
-        // but exists is tenant-blind — guard against cross-tenant scheduling).
+        // but exists is tenant-blind - guard against cross-tenant scheduling).
         if (!Property::where('id', $request->input('property_id'))->where('created_by', creatorId())->exists()) {
             return back()->with('error', __('Permission denied'));
         }
@@ -93,7 +93,7 @@ class PropertyViewingController extends Controller
     }
 
     /**
-     * Lead options only when the CRM (lead) module is installed — the module
+     * Lead options only when the CRM (lead) module is installed - the module
      * is decoupled and works without it.
      */
     private function leadOptions()
